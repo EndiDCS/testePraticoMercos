@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from .forms import ClientForm,ItemForm
-from .models import Item
+from .models import Item,Order
 
 #constantes
 from .constantes import endi
@@ -29,14 +29,22 @@ def novoPedido(request):
             quantity = form2.cleaned_data['quantidade']
             price = form2.cleaned_data['preco']
             eu = endi['daniel']
-
-            context = {'client':client,'product':product,'quantity':quantity,'price':price,'eu':eu}
+            o = request.session.get('o')
+            
+            context = {'client':client,'product':product,'quantity':quantity,'price':price,'eu':eu,'o':o}
             # se o usuário clicar no botão salvar, salva os dados no banco
             if('Salvar' in request.POST):
+                print(o)
                 return render(request,'core/resultado.html',context)
+                
             #se o usuário clicar no botão para adicionar um novo item    
             if('Adicionar' in request.POST):
                 form2=ItemForm()
+                
+                lista=[product,quantity,price]
+                ##print(o)
+                o.append(lista)
+                request.session['o'] = o
                 return render(request,'core/novoPedido.html',{'form1':form1,'form2':form2})
             
     else:
@@ -47,6 +55,9 @@ def novoPedido(request):
         #instancia os formulários vazios para que o usuário possa preencher
         form1 = ClientForm()
         form2 = ItemForm()
+        o=Order.objects.create(cliente = 'client', item = [['a','b','c']])
+        lista = o.item
+        request.session['o'] =lista
     return render(request,'core/novoPedido.html',{'form1':form1,'form2':form2})
 
 def resultadoPedido(request):

@@ -1,18 +1,18 @@
 from django import forms
 #Clientes Pré Cadastrados
-CLIENT_CHOICES = ((1,'Darth​ ​Vader'),
-                     (2,'Obi-Wan​ ​Kenobi'),
-                     (3,'Luke​ ​Skywalker'),
-                     (4,'Imperador​ ​Palpatine'),
-                     (5,'Han​ ​Solo'))
+CLIENT_CHOICES = (('Darth​ ​Vader','Darth​ ​Vader'),
+                     ('Obi-Wan​ ​Kenobi','Obi-Wan​ ​Kenobi'),
+                     ('Luke​ ​Skywalker','Luke​ ​Skywalker'),
+                     ('Imperador​ ​Palpatine','Imperador​ ​Palpatine'),
+                     ('Han​ ​Solo','Han​ ​Solo'))
 #Produtos Pré Cadastrados
-PRODUCT_CHOICES = ((1,'Millenium​ ​Falcon'),
-                     (2,'X-Wing'),
-                     (3,'Super​ ​Star​ ​Destroyer'),
-                     (4,'TIE​ ​Fighter'),
-                     (5,'Lightsaber'),
-                     (6,'DLT-19​ ​Heavy​ ​Blaster​ ​Rifle'),
-                     (7,'DL-44​ ​Heavy​ ​Blaster​ ​Pistol'))
+PRODUCT_CHOICES = (('Millenium​ ​Falcon','Millenium​ ​Falcon'),
+                     ('X-Wing','X-Wing'),
+                     ('Super​ ​Star​ ​Destroyer','Super​ ​Star​ ​Destroyer'),
+                     ('TIE​ ​Fighter','TIE​ ​Fighter'),
+                     ('Lightsaber','Lightsaber'),
+                     ('DLT-19​ ​Heavy​ ​Blaster​ ​Rifle','DLT-19​ ​Heavy​ ​Blaster​ ​Rifle'),
+                     ('DL-44​ ​Heavy​ ​Blaster​ ​Pistol','DL-44​ ​Heavy​ ​Blaster​ ​Pistol'))
 
 class ClientForm(forms.Form):
     #Primeiro valor é o valor que sera usado o segundo da tupla e o que sera visto pelo usuario
