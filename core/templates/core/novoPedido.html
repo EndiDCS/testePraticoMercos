@@ -7,9 +7,16 @@
     <body>
         <form action="" method="post">
             {% csrf_token %}
-            {{ form.as_p }} 
-            <input type="submit" value="Submit">
+            <h4>Cliente:</h4>
+            {{ form1.as_p }} 
+            <h4>Item:</h4>
+            {{ form2.as_p }} 
+            <input type="submit" value="Adicionar novo Item">
+            <input type="submit" value="Salvar Pedido">
+           
         </form>
-
+        <form>
+            <input type="submit" value="Cancelar" name="Cancelar">
+        </form>
     </body>
 </html>
