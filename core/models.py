@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.postgres.fields import ArrayField
 
 # Create your models here.
 class Cliente(models.Model):
@@ -23,5 +24,15 @@ class Item(models.Model):
     referencia_produto = models.ForeignKey(Produto,on_delete=models.CASCADE)
     referencia_pedido = models.ForeignKey(Pedido,on_delete=models.CASCADE)
 
-
+class Order(models.Model):
+    cliente = models.CharField(max_length=100)
+    item = ArrayField(
+            ArrayField(models.CharField(max_length=100))
+    )
+    def retornaItem(self):
+        return self.item
+    def retornaArray(self,i):
+        return self.item[i]
+    def retornaElemento(self,i,j):
+        return self.item[i][j]
     

@@ -20,13 +20,9 @@ def index(request):
 def novoPedido(request):
     #se a requisição chega com o verbo POST processa os dados recebidos e realiza as operações necessárias
     if request.method == 'POST':
-        
         form1 = ClientForm(request.POST)
         form2 = ItemForm(request.POST)
         if (form1.is_valid() & form2.is_valid()):
-            
-            
-
             #processa os dados do formulario  e redireciona para alguma url
             client = form1.cleaned_data['clientes']
             product = form2.cleaned_data['produtos']
@@ -34,18 +30,21 @@ def novoPedido(request):
             price = form2.cleaned_data['preco']
             eu = endi['daniel']
 
-            #daqui pra baix realizar operacoes com os dados obtidos pelo formulario
-            #criar o item no banco de dados
-            # = Item(quantidade_digitada_pelo_usuario=quantity,preco_digitado_pelo_usuario=price,)
-            #antes de salvar o item realizar as validações
-            
             context = {'client':client,'product':product,'quantity':quantity,'price':price,'eu':eu}
-            return render(request,'core/resultado.html',context)
+            # se o usuário clicar no botão salvar, salva os dados no banco
+            if('Salvar' in request.POST):
+                return render(request,'core/resultado.html',context)
+            #se o usuário clicar no botão para adicionar um novo item    
+            if('Adicionar' in request.POST):
+                form2=ItemForm()
+                return render(request,'core/novoPedido.html',{'form1':form1,'form2':form2})
+            
     else:
-        #caso a requisição não chegue como POST renderiza o formulario no formto padrão para o usuário
+        #caso a requisição não chegue como POST renderiza o formulario no formato padrão para o usuário
         #se cancelar volta pra página inicial
         if('Cancelar' in request.GET):
             return HttpResponseRedirect(reverse('core:index'))
+        #instancia os formulários vazios para que o usuário possa preencher
         form1 = ClientForm()
         form2 = ItemForm()
     return render(request,'core/novoPedido.html',{'form1':form1,'form2':form2})
