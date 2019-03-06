@@ -1,5 +1,8 @@
 <ul>
-    {% for i in todos %}
-        <li>{{i.cliente}}{{ i.item }} <a href="#"> Editar </a></li>
+        {{tamanho}}
+    {{client}}
+    
+    {% for i in item %}
+        <li><a href="{% url 'core:editaPedido' p.id i.id %}"> Editar </a></li>
     {%endfor%}
 </ul>

@@ -1,0 +1,13 @@
+<html>
+    <head>
+        <title>Edite seu pedido</title>
+    </head>
+    <body>
+        <form action="" method="POST">
+            {% csrf_token %}
+            {{formPedido}}
+            {{formItem}}
+            <input type="submit" value="Salvar Pedido" name="Salvar">
+        </form>
+    </body>
+</html>
