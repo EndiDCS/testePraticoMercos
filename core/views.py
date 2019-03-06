@@ -26,25 +26,32 @@ def novoPedido(request):
             #processa os dados do formulario  e redireciona para alguma url
             client = form1.cleaned_data['clientes']
             product = form2.cleaned_data['produtos']
+            #product = request.POST.get('produtos')
             quantity = form2.cleaned_data['quantidade']
             price = form2.cleaned_data['preco']
-            eu = endi['daniel']
-            o = request.session.get('o')
+            lista_acumulada = request.session.get('lista_acumulada')
             
-            context = {'client':client,'product':product,'quantity':quantity,'price':price,'eu':eu,'o':o}
+           
             # se o usuário clicar no botão salvar, salva os dados no banco
             if('Salvar' in request.POST):
-                print(o)
+                #adiciona item na lista e salva no banco de dados
+                lista=[product,quantity,price]
+                lista_acumulada.append(lista)
+                objeto = Order.objects.create(cliente = client, item = lista_acumulada)
+                objeto.save()
+                todos_objetos = Order.objects.all()
+                context = {'lista_acumulada':objeto.item,'todos':todos_objetos}
                 return render(request,'core/resultado.html',context)
                 
             #se o usuário clicar no botão para adicionar um novo item    
             if('Adicionar' in request.POST):
                 form2=ItemForm()
-                
+
+                #adiciona item a lista e salva na seção
                 lista=[product,quantity,price]
-                ##print(o)
-                o.append(lista)
-                request.session['o'] = o
+                lista_acumulada.append(lista)
+                request.session['lista_acumulada'] = lista_acumulada
+                
                 return render(request,'core/novoPedido.html',{'form1':form1,'form2':form2})
             
     else:
@@ -55,9 +62,9 @@ def novoPedido(request):
         #instancia os formulários vazios para que o usuário possa preencher
         form1 = ClientForm()
         form2 = ItemForm()
-        o=Order.objects.create(cliente = 'client', item = [['a','b','c']])
-        lista = o.item
-        request.session['o'] =lista
+        lista_acumulada=Order(cliente = 'client', item = [])
+        lista = lista_acumulada.item
+        request.session['lista_acumulada'] =lista
     return render(request,'core/novoPedido.html',{'form1':form1,'form2':form2})
 
 def resultadoPedido(request):

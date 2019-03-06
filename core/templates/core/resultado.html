@@ -1,9 +1,5 @@
-<h1>
-    Endi
-    {{client}}
-    {{product}}
-    {{quantity}}
-    {{price}}
-    {{eu}}
-    {{o}}
-</h1>
+<ul>
+    {% for i in todos %}
+        <li>{{i.cliente}}{{ i.item }} <a href="#"> Editar </a></li>
+    {%endfor%}
+</ul>
