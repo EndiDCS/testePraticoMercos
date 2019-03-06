@@ -5,12 +5,14 @@
     <body>
         <h1>Todos os Pedidos</h1>
         {% for produto in p  %}
-        <li> {{produto.cliente}}
+        <br>
+        <li> {{produto.cliente}}</li>
             {% for item in i %}
                 {% if item.referencia_pedido == produto %}
                     {{item.produto}}
                     {{item.quantidade_digitadada_pelo_usuario}}
                     {{item.preco_digitado_pelo_usuario}}
+                    <a href="{% url 'core:editaPedido' produto.id item.id %}"> Editar </a><br>
                 {% endif %}    
             {%endfor%}
         {%endfor%}
