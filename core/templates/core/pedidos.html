@@ -1,0 +1,18 @@
+<html>
+    <head>
+        <title>Página de Pedidos</title>
+    </head>
+    <body>
+        <h1>Todos os Pedidos</h1>
+        {% for produto in p  %}
+        <li> {{produto.cliente}}
+            {% for item in i %}
+                {% if item.referencia_pedido == produto %}
+                    {{item.produto}}
+                    {{item.quantidade_digitadada_pelo_usuario}}
+                    {{item.preco_digitado_pelo_usuario}}
+                {% endif %}    
+            {%endfor%}
+        {%endfor%}
+    </body>
+</html>

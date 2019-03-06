@@ -14,9 +14,14 @@ from .constantes import endi
 
 #renderiza a página inicial
 def index(request):
+    
+    return render(request,'core/index.html')
+
+def todosPedidos(request):
     p = Pedido.objects.all()
     i = Item.objects.all()
-    return render(request,'core/index.html')
+    return render(request,'core/pedidos.html',{'p':p,'i':i})
+    
 
 #trata o novo pedido
 def novoPedido(request):
