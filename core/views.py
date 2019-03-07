@@ -8,8 +8,25 @@ from django.shortcuts import get_object_or_404,redirect
 from .constantes import endi
 
 #################funcoes para tratar e manipular os dados#################3
+PRECO_PRODUTOS = {
+    'Millenium​ ​Falcon':550000,
+    'X-Wing':60000,
+    'Super​ ​Star​ ​Destroyer':4570000,
+    'TIE​ ​Fighter':75000,
+    'Lightsaber':6000,
+    'DLT-19​ ​Heavy​ ​Blaster​ ​Rifle':5800,
+    'DL-44​ ​Heavy​ ​Blaster​ ​Pistol':1500
+    }
 
-
+MULTIPLO_PRODUTOS = {
+    'Millenium​ ​Falcon':0,
+    'X-Wing':2,
+    'Super​ ​Star​ ​Destroyer':0,
+    'TIE​ ​Fighter':2,
+    'Lightsaber':5,
+    'DLT-19​ ​Heavy​ ​Blaster​ ​Rifle':0,
+    'DL-44​ ​Heavy​ ​Blaster​ ​Pistol':10
+    }   
 ################# Views abaixo ################
 
 #renderiza a página inicial
@@ -48,9 +65,21 @@ def novoPedido(request):
                 i=0
                 listaDeItens=[]
                 while (i < len(lista_acumulada)):
+                    rent = 'ruim'
+                    #verificar rentabilidade
+                    if(lista_acumulada[i][2] > PRECO_PRODUTOS[lista_acumulada[i][0]]):
+                        rent =  'otima'
+                    elif (lista_acumulada[i][2]  < (PRECO_PRODUTOS[lista_acumulada[i][0]] - (0.1*PRECO_PRODUTOS[lista_acumulada[i][0]]))):
+                        rent = 'ruim'
+                    else:
+                        rent = 'boa'    
+                    ########################
+                    #verficar multiplo
+                    
                     item = Item(quantidade_digitadada_pelo_usuario=lista_acumulada[i][1],
                     preco_digitado_pelo_usuario=lista_acumulada[i][2],
                     produto=lista_acumulada[i][0],
+                    rentabilidade=rent,
                     referencia_pedido=p)
                     item.save()
                     i = i + 1

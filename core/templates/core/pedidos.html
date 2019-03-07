@@ -12,6 +12,7 @@
                     {{item.produto}}
                     {{item.quantidade_digitadada_pelo_usuario}}
                     {{item.preco_digitado_pelo_usuario}}
+                    {{item.rentabilidade}}
                     <a href="{% url 'core:editaPedido' produto.id item.id %}"> Editar </a><br>
                 {% endif %}    
             {%endfor%}
