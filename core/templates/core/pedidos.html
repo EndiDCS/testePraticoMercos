@@ -5,7 +5,8 @@
         
         {% for produto in p  %}
         <br>  <br>
-        <ul class="list-group"></ul>      
+        <h3>Pedido {{produto.id }}</h3>
+        <ul class="list-group" ></ul>      
         <li class="list-group-item">Cliente: {{produto.cliente}}</li>
             {% for item in i %}
                 {% if item.referencia_pedido == produto %}
@@ -13,9 +14,11 @@
                      <li class="list-group-item">Quantidade: {{item.quantidade_digitadada_pelo_usuario}}</li>
                     <li class="list-group-item">Preço: {{item.preco_digitado_pelo_usuario}}</li>
                     <li class="list-group-item">Rentabilidade: {{item.rentabilidade}}</li>
-                    <li class="list-group-item" ><a href="{% url 'core:editaPedido' produto.id item.id %}" class="btn btn-warning"> Editar </a></li>
+                    <li class="list-group-item" ><a href="{% url 'core:editaPedido' produto.id item.id %}" class="btn btn-warning"> Editar Item </a>
+                    <a href="{% url 'core:deleteItem' item.id %}" class="btn btn-danger"> Deletar Item </a>  </li> 
                 {% endif %}    
             {%endfor%}
+            <li class="list-group-item" ><a href="{% url 'core:deletePedido' produto.id %}" class="btn btn-danger"> Deletar Pedido </a></li> 
         {%endfor%}
         
         </ul>

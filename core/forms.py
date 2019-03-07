@@ -52,9 +52,7 @@ class ItemForm(forms.ModelForm):
         fields = ['produto','quantidade_digitadada_pelo_usuario','preco_digitado_pelo_usuario']   
         widgets = {'produto': Select(choices=PRODUCT_CHOICES)} 
         labels = {'quantidade_digitadada_pelo_usuario':'Quantidade','preco_digitado_pelo_usuario':'Preço'}
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['preco_digitado_pelo_usuario'].initial = Decimal(550000)
+
 
     def clean(self):
         cleaned_data = super().clean()
@@ -65,8 +63,9 @@ class ItemForm(forms.ModelForm):
         error1 = False
         error2 = False
         error3 = False
+
         if(MULTIPLO_PRODUTOS[product] != 0):
-            if((quantity % multiplo) != 0 or quantity <= 0 ):
+            if((quantity % multiplo) != 0 ):
                 error1 = True
                 #raise forms.ValidationError("Quantidade não é multipla")
 
@@ -74,16 +73,36 @@ class ItemForm(forms.ModelForm):
             error2=True
             #raise forms.ValidationError("Rentabilidade Ruim")
 
+        if(quantity <= 0):
+            error3=True
 
-        if(error1 and error2):
+        if(error1 and error2 and error3):
             raise forms.ValidationError([
-                forms.ValidationError(('Este produto precisa ser multiplo de %s ' % multiplo), code='error1'),
-                forms.ValidationError(('Rentabilidade Ruim'), code='error2'),
-            ])    
-        elif(error1):        
-            raise forms.ValidationError("Quantidade não é multipla")
-        elif (error2):
-            raise forms.ValidationError("Rentabilidade Ruim")
+                forms.ValidationError(('|Este produto precisa ser multiplo de %s|' % multiplo), code='error1'),
+                forms.ValidationError(('|Rentabilidade Ruim|'), code='error2'),
+                forms.ValidationError(('|Quantidade precisa ser maior do que zero|'), code='error3'),
+            ])        
+        if(error1 and error2):        
+           raise forms.ValidationError([
+                forms.ValidationError(('|Este produto precisa ser multiplo de %s|' % multiplo), code='error1'),
+                forms.ValidationError(('|Rentabilidade Ruim|'), code='error2'),
+            ])     
+        if(error1 and error3):        
+            raise forms.ValidationError([
+                forms.ValidationError(('|Este produto precisa ser multiplo de %s|' % multiplo), code='error1'),
+                forms.ValidationError(('|Quantidade precisa ser maior do que zero|'), code='error3'),
+            ])     
+        if (error2 and error3):
+            raise forms.ValidationError([
+                forms.ValidationError(('|Rentabilidade Ruim|'), code='error2'),
+                forms.ValidationError(('|Quantidade precisa ser maior do que zero|'), code='error3'),
+            ])     
+        if(error1):  
+            raise forms.ValidationError("Quantidade não é multipla ou é menor ou igual a Zero")
+        if (error2 and error3):
+            raise forms.ValidationError("Rentabilidade Ruim")            
+        if (error3):
+            raise forms.ValidationError("Quantidade precisa ser maior do que zero")    
        
     
 

@@ -30,14 +30,6 @@
                     <a class="navbar-brand" href="{% url 'core:todosPedidos'%}">
                        Todos Pedidos
                     </a>
-                    
-                    <a class="navbar-brand" href="https://www.linkedin.com/in/endi-daniel-9866aa72/" target="_blank">
-                        v
-                    </a>
-                    
-                    <a class="navbar-brand" href="https://github.com/EndiDCS" target="_blank">
-                        d
-                    </a>
                 </div>
             </div>
         </nav>   
@@ -45,16 +37,110 @@
         <div class="container word-wrap" >
                 <br>   
            <div class="row">
-                <div role="main" class="col-md-9" style="border: 2px black solid">
+                <div role="main" class="col-md-9" >
                     {% block main %}
             
                     {%  endblock %}
                 </div>
-                <aside role="complementary" class="col-md-3" style="border: 2px black solid">
-                    <h3> Contatos : </h3>
+                <aside role="complementary" class="col-md-3" >
+                    <h3 align="center"> Pedidos  </h3>
                     <ul class="list-group">
-                        <li class="list-group-item">endicoelho@gmail.com</li>
+                        
+                        <li class="list-group-item"><a href="{% url 'core:formularioPedido' %}" class="btn btn-primary"> Criar um novo pedido </a></li>
+                        <li class="list-group-item"><a href="{% url 'core:todosPedidos' %}" class="btn btn-primary">Visualizar todos os pedidos</a></li>
+                         
                     </ul>
+                    <br>
+                    <style type="text/css">
+                        .tg  {border-collapse:collapse;border-spacing:0;}
+                        .tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+                        .tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+                        .tg .tg-s268{text-align:left}
+                        </style>
+                        <table class="tg">
+                          <tr>
+                            <th class="tg-s268">ID</th>
+                            <th class="tg-s268">Nome</th>
+                            <th class="tg-s268">Preço (R$)</th>
+                            <th class="tg-s268">Múltiplo</th>
+                          </tr>
+                          <tr>
+                            <td class="tg-s268">1</td>
+                            <td class="tg-s268">Millenium Falcon</td>
+                            <td class="tg-s268">550.000,00</td>
+                            <td class="tg-s268"></td>
+                          </tr>
+                          <tr>
+                            <td class="tg-s268">2</td>
+                            <td class="tg-s268">X-Wing</td>
+                            <td class="tg-s268">60.000,00</td>
+                            <td class="tg-s268">2</td>
+                          </tr>
+                          <tr>
+                            <td class="tg-s268">3</td>
+                            <td class="tg-s268">Super Star Destroyer</td>
+                            <td class="tg-s268">4.570.000,00</td>
+                            <td class="tg-s268"></td>
+                          </tr>
+                          <tr>
+                            <td class="tg-s268">4</td>
+                            <td class="tg-s268">TIE Fighter</td>
+                            <td class="tg-s268">75.000,00</td>
+                            <td class="tg-s268">2</td>
+                          </tr>
+                          <tr>
+                            <td class="tg-s268">5</td>
+                            <td class="tg-s268">Lightsaber</td>
+                            <td class="tg-s268">6.000,00</td>
+                            <td class="tg-s268">5</td>
+                          </tr>
+                          <tr>
+                            <td class="tg-s268">6</td>
+                            <td class="tg-s268">DLT-19 Heavy Blaster Rifle</td>
+                            <td class="tg-s268">5.800,00</td>
+                            <td class="tg-s268"></td>
+                          </tr>
+                          <tr>
+                            <td class="tg-s268">7</td>
+                            <td class="tg-s268">DL-44 Heavy Blaster Pistol</td>
+                            <td class="tg-s268">1.500,00</td>
+                            <td class="tg-s268">10</td>
+                          </tr>
+                        </table>    
+                        
+                        <hr class="my-4">
+                        <style type="text/css">
+                                .tg  {border-collapse:collapse;border-spacing:0;}
+                                .tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+                                .tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+                                .tg .tg-s268{text-align:left}
+                                </style>
+                                <table class="tg">
+                                  <tr>
+                                    <th class="tg-s268">ID</th>
+                                    <th class="tg-s268">Nome</th>
+                                  </tr>
+                                  <tr>
+                                    <td class="tg-s268">1</td>
+                                    <td class="tg-s268">Darth​ ​Vader</td>
+                                  </tr>
+                                  <tr>
+                                    <td class="tg-s268">2</td>
+                                    <td class="tg-s268">Obi-Wan​ ​Kenobi</td>
+                                  </tr>
+                                  <tr>
+                                    <td class="tg-s268">3</td>
+                                    <td class="tg-s268">Luke​ ​Skywalker</td>
+                                  </tr>
+                                  <tr>
+                                    <td class="tg-s268">4</td>
+                                    <td class="tg-s268">Imperador​ ​Palpatine</td>
+                                  </tr>
+                                  <tr>
+                                    <td class="tg-s268">5</td>
+                                    <td class="tg-s268">Han​ ​Solo</td>
+                                  </tr>
+                                </table>
                     {% block aside %}
                         
                     {%  endblock %}

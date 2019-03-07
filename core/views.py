@@ -7,6 +7,7 @@ from django.shortcuts import get_object_or_404,redirect
 #constantes
 from .constantes import endi
 
+
 #################funcoes para tratar e manipular os dados#################3
 PRECO_PRODUTOS = {
     'Millenium​ ​Falcon':550000,
@@ -44,7 +45,18 @@ def todosPedidos(request):
     p = Pedido.objects.all()
     i = Item.objects.all()
     return render(request,'core/pedidos.html',{'p':p,'i':i})
-    
+
+def delete_item(request,id):
+    item = Item.objects.get(pk=id).delete()    
+    p = Pedido.objects.all()
+    i = Item.objects.all()
+    return render(request,'core/pedidos.html',{'p':p,'i':i})
+
+def delete_pedido(request,id):
+    pedido = Pedido.objects.get(pk=id).delete()
+    p = Pedido.objects.all()
+    i = Item.objects.all()
+    return render(request,'core/pedidos.html',{'p':p,'i':i})     
 
 #trata o novo pedido
 def novoPedido(request):
@@ -57,13 +69,14 @@ def novoPedido(request):
             client = form1.cleaned_data['cliente']
             product = form2.cleaned_data['produto']
             quantity = form2.cleaned_data['quantidade_digitadada_pelo_usuario']
-            price = form2.cleaned_data['preco_digitado_pelo_usuario']            
+            price = form2.cleaned_data['preco_digitado_pelo_usuario']     
+            #price=10       
             #código old
             lista_acumulada = request.session.get('lista_acumulada')
             # se o usuário clicar no botão salvar, salva os dados no banco
             if('Salvar' in request.POST):
                 #adiciona item na lista e salva no banco de dados
-                lista=[product,quantity,price]
+                lista=[product,quantity,float(price)]
                 lista_acumulada.append(lista)
                 context = {'lista_acumulada':lista_acumulada,'client':client,'tamanho':len(lista_acumulada)}
                 p = Pedido.objects.create(cliente=client)
@@ -72,21 +85,14 @@ def novoPedido(request):
                 listaDeItens=[]
                 while (i < len(lista_acumulada)):
                     rent = 'ruim'
-                    #verificar rentabilidade
-                    #if(lista_acumulada[i][2] > PRECO_PRODUTOS[lista_acumulada[i][0]]):
-                     #   rent =  'otima'
-                    #elif (lista_acumulada[i][2]  < (PRECO_PRODUTOS[lista_acumulada[i][0]] - (0.1*PRECO_PRODUTOS[lista_acumulada[i][0]]))):
-                     #   rent = 'ruim'
-                    #else:
-                        #rent = 'boa'    
-                    ########################
-                    #verficar multiplo
-                    #if(MULTIPLO_PRODUTOS[lista_acumulada[i][0] != 0]):
-                     #   if(quantity % MULTIPLO_PRODUTOS[lista_acumulada[i][0] == 0]):
-                      #      validado = 'ok'
-                       # else:
-                        #    validado = 'fail'    
-                    ########################
+                    
+                    if(lista_acumulada[i][2] > PRECO_PRODUTOS[lista_acumulada[i][0]]):
+                       rent =  'otima'
+                    elif (lista_acumulada[i][2]  < (PRECO_PRODUTOS[lista_acumulada[i][0]] - (0.1*PRECO_PRODUTOS[lista_acumulada[i][0]]))):
+                       rent = 'ruim'
+                    else:
+                        rent = 'boa'    
+                 
                     item = Item(quantidade_digitadada_pelo_usuario=lista_acumulada[i][1],
                     preco_digitado_pelo_usuario=lista_acumulada[i][2],
                     produto=lista_acumulada[i][0],
