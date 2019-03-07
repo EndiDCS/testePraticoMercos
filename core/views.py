@@ -8,7 +8,7 @@ from django.shortcuts import get_object_or_404,redirect
 from .constantes import endi
 
 
-#################funcoes para tratar e manipular os dados#################3
+#################Constantes#################3
 PRECO_PRODUTOS = {
     'Millenium​ ​Falcon':550000,
     'X-Wing':60000,
@@ -32,13 +32,10 @@ MULTIPLO_PRODUTOS = {
 def muda_preco(request):
     produto = request.GET.get('produto')
     preco = PRECO_PRODUTOS[produto]
-    #cities = City.objects.filter(country_id=country_id).order_by('name')
-    #return render(request, 'hr/city_dropdown_list_options.html', {'cities': cities})
     return preco
 
 #renderiza a página inicial
 def index(request):
-    
     return render(request,'core/index.html')
 
 def todosPedidos(request):
@@ -70,8 +67,6 @@ def novoPedido(request):
             product = form2.cleaned_data['produto']
             quantity = form2.cleaned_data['quantidade_digitadada_pelo_usuario']
             price = form2.cleaned_data['preco_digitado_pelo_usuario']     
-            #price=10       
-            #código old
             lista_acumulada = request.session.get('lista_acumulada')
             # se o usuário clicar no botão salvar, salva os dados no banco
             if('Salvar' in request.POST):
@@ -85,7 +80,7 @@ def novoPedido(request):
                 listaDeItens=[]
                 while (i < len(lista_acumulada)):
                     rent = 'ruim'
-                    
+                    #Verifica a rentabilidade do item adicionado
                     if(lista_acumulada[i][2] > PRECO_PRODUTOS[lista_acumulada[i][0]]):
                        rent =  'otima'
                     elif (lista_acumulada[i][2]  < (PRECO_PRODUTOS[lista_acumulada[i][0]] - (0.1*PRECO_PRODUTOS[lista_acumulada[i][0]]))):

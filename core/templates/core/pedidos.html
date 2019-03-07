@@ -3,22 +3,22 @@
 {% block main %}
         <h1 align="center">Todos os Pedidos</h1>
         
-        {% for produto in p  %}
+        {% for pedido in p  %}
         <br>  <br>
-        <h3>Pedido {{produto.id }}</h3>
+        <h3>Pedido {{pedido.id }}</h3>
         <ul class="list-group" ></ul>      
-        <li class="list-group-item">Cliente: {{produto.cliente}}</li>
+        <li class="list-group-item">Cliente: {{pedido.cliente}}</li>
             {% for item in i %}
-                {% if item.referencia_pedido == produto %}
+                {% if item.referencia_pedido == pedido %}
                      <li class="list-group-item">Produto: {{item.produto}}</li>
                      <li class="list-group-item">Quantidade: {{item.quantidade_digitadada_pelo_usuario}}</li>
                     <li class="list-group-item">Preço: {{item.preco_digitado_pelo_usuario}}</li>
                     <li class="list-group-item">Rentabilidade: {{item.rentabilidade}}</li>
-                    <li class="list-group-item" ><a href="{% url 'core:editaPedido' produto.id item.id %}" class="btn btn-warning"> Editar Item </a>
+                    <li class="list-group-item" ><a href="{% url 'core:editaPedido' pedido.id item.id %}" class="btn btn-warning"> Editar Item </a>
                     <a href="{% url 'core:deleteItem' item.id %}" class="btn btn-danger"> Deletar Item </a>  </li> 
                 {% endif %}    
             {%endfor%}
-            <li class="list-group-item" ><a href="{% url 'core:deletePedido' produto.id %}" class="btn btn-danger"> Deletar Pedido </a></li> 
+            <li class="list-group-item" ><a href="{% url 'core:deletePedido' pedido.id %}" class="btn btn-danger"> Deletar Pedido </a></li> 
         {%endfor%}
         
         </ul>
