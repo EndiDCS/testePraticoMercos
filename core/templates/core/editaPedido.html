@@ -1,13 +1,15 @@
-<html>
-    <head>
-        <title>Edite seu pedido</title>
-    </head>
-    <body>
+{% extends 'core/base.html' %}
+{% load bootstrap %}
+{% block main %}
+        <style>
+                .errorlist{
+                    color: red;
+                }
+        </style>  
         <form action="" method="POST">
             {% csrf_token %}
-            {{formPedido}}
-            {{formItem}}
-            <input type="submit" value="Salvar Pedido" name="Salvar">
+            {{formPedido|bootstrap}}
+            {{formItem|bootstrap}}
+            <input type="submit" value="Salvar" name="Salvar">
         </form>
-    </body>
-</html>
+{% endblock %}

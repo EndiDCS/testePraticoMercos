@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'core',
     'django_select2',
+    'bootstrapform',
 ]
 
 MIDDLEWARE = [

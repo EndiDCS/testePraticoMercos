@@ -1,10 +1,9 @@
-<html>
-    <head>
-        <title>Página Inicial</title>
-    </head>
-    <body>
-        <h1>Seja bem vindo</h1>
-         <a href="{% url 'core:formularioPedido' %}"> Criar um novo pedido </a>
-         <a href="{% url 'core:todosPedidos' %}">Visualizar todos os pedidos</a>
-    </body>
-</html>
+{% extends 'core/base.html' %}
+
+{% block main %}
+    
+        <h1 align="center">Seja bem vindo</h1>
+        <a href="{% url 'core:formularioPedido' %}"> Criar um novo pedido </a>
+        <a href="{% url 'core:todosPedidos' %}">Visualizar todos os pedidos</a>
+    
+{%endblock %}

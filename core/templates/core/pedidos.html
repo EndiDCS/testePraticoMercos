@@ -1,9 +1,7 @@
-<html>
-    <head>
-        <title>Página de Pedidos</title>
-    </head>
-    <body>
-        <h1>Todos os Pedidos</h1>
+{% extends 'core/base.html' %}
+
+{% block main %}
+        <h1 align="center">Todos os Pedidos</h1>
         {% for produto in p  %}
         <br>
         <li> {{produto.cliente}}</li>
@@ -17,5 +15,6 @@
                 {% endif %}    
             {%endfor%}
         {%endfor%}
-    </body>
-</html>
+
+
+{% endblock %} 

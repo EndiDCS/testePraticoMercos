@@ -1,16 +1,18 @@
-<html>
-    <head>
-        <title>
-            Novo Pedido
-        </title>
-    </head>
-    <body>
+{% extends 'core/base.html' %}
+{% load bootstrap %}
+{% block main %}
+        <style>
+            .errorlist{
+                color: red;
+            }
+        </style>   
         <form action="" method="post">
             {% csrf_token %}
             <h4>Cliente:</h4>
-            {{ form1.as_p }} 
+            
+            {{ form1|bootstrap }}
             <h4>Item:</h4>
-            {{ form2.as_p }} 
+            {{ form2|bootstrap }} 
             <input type="submit" value="Adicionar novo Item" name="Adicionar" >
             <input type="submit" value="Salvar Pedido" name="Salvar">
            
@@ -18,5 +20,4 @@
         <form>
             <input type="submit" value="Cancelar" name="Cancelar">
         </form>
-    </body>
-</html>
+{% endblock %}

@@ -28,6 +28,12 @@ MULTIPLO_PRODUTOS = {
     'DL-44​ ​Heavy​ ​Blaster​ ​Pistol':10
     }   
 ################# Views abaixo ################
+def muda_preco(request):
+    produto = request.GET.get('produto')
+    preco = PRECO_PRODUTOS[produto]
+    #cities = City.objects.filter(country_id=country_id).order_by('name')
+    #return render(request, 'hr/city_dropdown_list_options.html', {'cities': cities})
+    return preco
 
 #renderiza a página inicial
 def index(request):
@@ -67,15 +73,20 @@ def novoPedido(request):
                 while (i < len(lista_acumulada)):
                     rent = 'ruim'
                     #verificar rentabilidade
-                    if(lista_acumulada[i][2] > PRECO_PRODUTOS[lista_acumulada[i][0]]):
-                        rent =  'otima'
-                    elif (lista_acumulada[i][2]  < (PRECO_PRODUTOS[lista_acumulada[i][0]] - (0.1*PRECO_PRODUTOS[lista_acumulada[i][0]]))):
-                        rent = 'ruim'
-                    else:
-                        rent = 'boa'    
+                    #if(lista_acumulada[i][2] > PRECO_PRODUTOS[lista_acumulada[i][0]]):
+                     #   rent =  'otima'
+                    #elif (lista_acumulada[i][2]  < (PRECO_PRODUTOS[lista_acumulada[i][0]] - (0.1*PRECO_PRODUTOS[lista_acumulada[i][0]]))):
+                     #   rent = 'ruim'
+                    #else:
+                        #rent = 'boa'    
                     ########################
                     #verficar multiplo
-                    
+                    #if(MULTIPLO_PRODUTOS[lista_acumulada[i][0] != 0]):
+                     #   if(quantity % MULTIPLO_PRODUTOS[lista_acumulada[i][0] == 0]):
+                      #      validado = 'ok'
+                       # else:
+                        #    validado = 'fail'    
+                    ########################
                     item = Item(quantidade_digitadada_pelo_usuario=lista_acumulada[i][1],
                     preco_digitado_pelo_usuario=lista_acumulada[i][2],
                     produto=lista_acumulada[i][0],
@@ -86,13 +97,14 @@ def novoPedido(request):
                     listaDeItens.append(item)
                 #i = Item.objects.all()   
                 context = {'lista_acumulada':lista_acumulada,'client':client,'tamanho':len(lista_acumulada),'p':p,'item':listaDeItens}    
-                return render(request,'core/resultado.html',context)
+                #return render(request,'core/resultado.html',context)
+                return redirect('core:todosPedidos')
                 
             #se o usuário clicar no botão para adicionar um novo item    
             if('Adicionar' in request.POST):
                 form2=ItemForm()
 
-                #adiciona item a lista e salva na seção
+                #adiciona item a lista e salva na sessão
                 lista=[product,quantity,price]
                 lista_acumulada.append(lista)
                 request.session['lista_acumulada'] = lista_acumulada

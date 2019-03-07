@@ -1,0 +1,10 @@
+body {
+    background-color: #edf2a7;
+}
+
+.img-circle {
+        border-radius: 5%;
+        max-width:250px;
+    }
+    
+.word-wrap{word-wrap: break-word;}    

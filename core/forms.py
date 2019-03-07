@@ -2,6 +2,7 @@ from django import forms
 from django.forms import ModelForm,Select
 from .models import Pedido,Item
 from django.forms import Select
+from decimal import Decimal
 #Primeiro valor é o valor que sera usado o segundo da tupla e o que sera visto pelo usuario
 #Clientes Pré Cadastrados
 CLIENT_CHOICES = (('Darth​ ​Vader','Darth​ ​Vader'),
@@ -18,6 +19,26 @@ PRODUCT_CHOICES = (('Millenium​ ​Falcon','Millenium​ ​Falcon'),
                      ('DLT-19​ ​Heavy​ ​Blaster​ ​Rifle','DLT-19​ ​Heavy​ ​Blaster​ ​Rifle'),
                      ('DL-44​ ​Heavy​ ​Blaster​ ​Pistol','DL-44​ ​Heavy​ ​Blaster​ ​Pistol'))
 
+PRECO_PRODUTOS = {
+    'Millenium​ ​Falcon':550000,
+    'X-Wing':60000,
+    'Super​ ​Star​ ​Destroyer':4570000,
+    'TIE​ ​Fighter':75000,
+    'Lightsaber':6000,
+    'DLT-19​ ​Heavy​ ​Blaster​ ​Rifle':5800,
+    'DL-44​ ​Heavy​ ​Blaster​ ​Pistol':1500
+    }
+
+MULTIPLO_PRODUTOS = {
+    'Millenium​ ​Falcon':0,
+    'X-Wing':2,
+    'Super​ ​Star​ ​Destroyer':0,
+    'TIE​ ​Fighter':2,
+    'Lightsaber':5,
+    'DLT-19​ ​Heavy​ ​Blaster​ ​Rifle':0,
+    'DL-44​ ​Heavy​ ​Blaster​ ​Pistol':10
+    }                      
+
 class PedidoForm(forms.ModelForm):
     class Meta:
         model = Pedido
@@ -29,6 +50,38 @@ class ItemForm(forms.ModelForm):
         model = Item
         fields = ['produto','quantidade_digitadada_pelo_usuario','preco_digitado_pelo_usuario']   
         widgets = {'produto': Select(choices=PRODUCT_CHOICES)} 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['preco_digitado_pelo_usuario'].initial = Decimal(550000)
+
+    def clean(self):
+        cleaned_data = super().clean()
+        quantity = cleaned_data.get("quantidade_digitadada_pelo_usuario")
+        product = cleaned_data.get("produto")
+        price = cleaned_data.get("preco_digitado_pelo_usuario")
+        multiplo = MULTIPLO_PRODUTOS[product]
+        error1 = False
+        error2 = False
+        if(MULTIPLO_PRODUTOS[product] != 0):
+            if((quantity % multiplo) != 0):
+                error1 = True
+                #raise forms.ValidationError("Quantidade não é multipla")
+
+        if(price < (PRECO_PRODUTOS[product] - (PRECO_PRODUTOS[product]*0.1) )):      
+            error2=True
+            #raise forms.ValidationError("Rentabilidade Ruim")
+
+        if(error1 and error2):
+            raise forms.ValidationError([
+                forms.ValidationError(('Este produto precisa ser multiplo de %s ' % multiplo), code='error1'),
+                forms.ValidationError(('Rentabilidade Ruim'), code='error2'),
+            ])    
+        elif(error1):        
+            raise forms.ValidationError("Quantidade não é multipla")
+        elif (error2):
+            raise forms.ValidationError("Rentabilidade Ruim")
+       
+    
 
 
 
