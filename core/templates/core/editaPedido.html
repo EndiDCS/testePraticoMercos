@@ -5,11 +5,12 @@
                 .errorlist{
                     color: red;
                 }
-        </style>  
+        </style> 
+        <h3 align="center">Editar Pedido</h3> 
         <form action="" method="POST">
             {% csrf_token %}
             {{formPedido|bootstrap}}
             {{formItem|bootstrap}}
-            <input type="submit" value="Salvar" name="Salvar">
+            <input type="submit" value="Salvar" name="Salvar" class="btn btn-success">
         </form>
 {% endblock %}

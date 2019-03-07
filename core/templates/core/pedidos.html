@@ -2,19 +2,22 @@
 
 {% block main %}
         <h1 align="center">Todos os Pedidos</h1>
+        
         {% for produto in p  %}
-        <br>
-        <li> {{produto.cliente}}</li>
+        <br>  <br>
+        <ul class="list-group"></ul>      
+        <li class="list-group-item">Cliente: {{produto.cliente}}</li>
             {% for item in i %}
                 {% if item.referencia_pedido == produto %}
-                    {{item.produto}}
-                    {{item.quantidade_digitadada_pelo_usuario}}
-                    {{item.preco_digitado_pelo_usuario}}
-                    {{item.rentabilidade}}
-                    <a href="{% url 'core:editaPedido' produto.id item.id %}"> Editar </a><br>
+                     <li class="list-group-item">Produto: {{item.produto}}</li>
+                     <li class="list-group-item">Quantidade: {{item.quantidade_digitadada_pelo_usuario}}</li>
+                    <li class="list-group-item">Preço: {{item.preco_digitado_pelo_usuario}}</li>
+                    <li class="list-group-item">Rentabilidade: {{item.rentabilidade}}</li>
+                    <li class="list-group-item" ><a href="{% url 'core:editaPedido' produto.id item.id %}" class="btn btn-warning"> Editar </a></li>
                 {% endif %}    
             {%endfor%}
         {%endfor%}
-
+        
+        </ul>
 
 {% endblock %} 

@@ -6,18 +6,16 @@
                 color: red;
             }
         </style>   
+        <h3 align="center">Novo Pedido</h3>
         <form action="" method="post">
             {% csrf_token %}
-            <h4>Cliente:</h4>
-            
             {{ form1|bootstrap }}
-            <h4>Item:</h4>
             {{ form2|bootstrap }} 
-            <input type="submit" value="Adicionar novo Item" name="Adicionar" >
-            <input type="submit" value="Salvar Pedido" name="Salvar">
+            <input type="submit" value="Adicionar novo Item" name="Adicionar" class="btn btn-primary" >
+            <input type="submit" value="Salvar Pedido" name="Salvar" class="btn btn-success">
            
         </form>
         <form>
-            <input type="submit" value="Cancelar" name="Cancelar">
+            <input type="submit" value="Cancelar" name="Cancelar" class="btn btn-danger">
         </form>
 {% endblock %}

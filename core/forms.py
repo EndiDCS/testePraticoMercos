@@ -45,11 +45,13 @@ class PedidoForm(forms.ModelForm):
         fields = ['cliente']
         widgets = {'cliente': Select(choices=CLIENT_CHOICES)}
 
+
 class ItemForm(forms.ModelForm):
     class Meta:
         model = Item
         fields = ['produto','quantidade_digitadada_pelo_usuario','preco_digitado_pelo_usuario']   
         widgets = {'produto': Select(choices=PRODUCT_CHOICES)} 
+        labels = {'quantidade_digitadada_pelo_usuario':'Quantidade','preco_digitado_pelo_usuario':'Preço'}
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['preco_digitado_pelo_usuario'].initial = Decimal(550000)
@@ -62,14 +64,16 @@ class ItemForm(forms.ModelForm):
         multiplo = MULTIPLO_PRODUTOS[product]
         error1 = False
         error2 = False
+        error3 = False
         if(MULTIPLO_PRODUTOS[product] != 0):
-            if((quantity % multiplo) != 0):
+            if((quantity % multiplo) != 0 or quantity <= 0 ):
                 error1 = True
                 #raise forms.ValidationError("Quantidade não é multipla")
 
         if(price < (PRECO_PRODUTOS[product] - (PRECO_PRODUTOS[product]*0.1) )):      
             error2=True
             #raise forms.ValidationError("Rentabilidade Ruim")
+
 
         if(error1 and error2):
             raise forms.ValidationError([
