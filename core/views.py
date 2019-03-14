@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect,HttpResponse
 from django.urls import reverse
 from .forms import ItemForm,PedidoForm
 from .models import Item,Pedido
@@ -32,8 +32,8 @@ MULTIPLO_PRODUTOS = {
 def muda_preco(request):
     produto = request.GET.get('produto')
     preco = PRECO_PRODUTOS[produto]
-    return preco
-
+    #return HttpResponse(preco)
+    return render(request, 'core/preco.html', {'preco': preco})
 #renderiza a página inicial
 def index(request):
     return render(request,'core/index.html')
@@ -82,9 +82,9 @@ def novoPedido(request):
                     rent = 'ruim'
                     #Verifica a rentabilidade do item adicionado
                     if(lista_acumulada[i][2] > PRECO_PRODUTOS[lista_acumulada[i][0]]):
-                       rent =  'otima'
+                        rent =  'otima'
                     elif (lista_acumulada[i][2]  < (PRECO_PRODUTOS[lista_acumulada[i][0]] - (0.1*PRECO_PRODUTOS[lista_acumulada[i][0]]))):
-                       rent = 'ruim'
+                        rent = 'ruim'
                     else:
                         rent = 'boa'    
                  
@@ -96,7 +96,7 @@ def novoPedido(request):
                     item.save()
                     i = i + 1
                     listaDeItens.append(item)
-                #i = Item.objects.all()   
+                 
                 context = {'lista_acumulada':lista_acumulada,'client':client,'tamanho':len(lista_acumulada),'p':p,'item':listaDeItens}    
                 #return render(request,'core/resultado.html',context)
                 return redirect('core:todosPedidos')

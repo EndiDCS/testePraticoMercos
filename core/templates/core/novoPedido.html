@@ -1,16 +1,24 @@
 {% extends 'core/base.html' %}
 {% load bootstrap %}
+{% load static %}
 {% block main %}
+
         <style>
             .errorlist{
                 color: red;
             }
         </style>   
         <h3 align="center">Novo Pedido</h3>
-        <form action="" method="post">
+        <form action="" method="post" id="pedidoForm" muda_preco_url="{% url 'core:ajax_muda_preco' %}">
             {% csrf_token %}
             {{ form1|bootstrap }}
             {{ form2|bootstrap }} 
+
+            <div id="rentabilidade" style="color:green" >
+                    Rentabilidade boa
+            </div>
+            <br>
+        
             <input type="submit" value="Adicionar novo Item" name="Adicionar" class="btn btn-primary" >
             <input type="submit" value="Salvar Pedido" name="Salvar" class="btn btn-success">
            
@@ -18,4 +26,37 @@
         <form>
             <input type="submit" value="Cancelar" name="Cancelar" class="btn btn-danger">
         </form>
+
+        
+<script>
+    $(document).ready(function() {
+        $('#id_produto').change(function () {
+            // url da view responsvel por calcular o novo preço
+            var url = $("#pedidoForm").attr("muda_preco_url"); 
+            // novo produto selecionado pelo usuario
+            var produto = $(this).val();  
+            $.ajax({                       
+                url: url, //url da view
+                data: {
+                    'produto': produto  //informa a view qual o novo produto escolhido pelo usuario
+                },            
+                success: function (preco) {   // preco é o retorno da função implementada nas views, logo o novo preço que será mostrado ao usuário
+                    $('input[name="preco_digitado_pelo_usuario"]').val(preco);
+                }
+            });
+        });
+
+        $('input[name="preco_digitado_pelo_usuario"]').keyup(function(){
+            var preco = $(this).val();
+            console.log(preco)
+            //fazer validação e informar ao usuario 
+            //dica para mim mesmo, ao mudar o produto mudar a rentabilidade para boa
+        });
+
+    });
+  </script>
+
+
+
+
 {% endblock %}
