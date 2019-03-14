@@ -1,16 +1,19 @@
 {% extends 'core/base.html' %}
 {% load bootstrap %}
+{% load static %}
 {% block main %}
-        <style>
-                .errorlist{
-                    color: red;
-                }
-        </style> 
+
         <h3 align="center">Editar Pedido</h3> 
-        <form action="" method="POST">
+
+        <form action="" method="POST" id="pedidoForm" muda_preco_url="{% url 'core:ajax_muda_preco' %}">
             {% csrf_token %}
             {{formPedido|bootstrap}}
             {{formItem|bootstrap}}
+            <div id="rentabilidade" style="color:green" >
+                    Verificar rentabilidade no banco
+            </div>
             <input type="submit" value="Salvar" name="Salvar" class="btn btn-success">
         </form>
+
+        <script type="text/javascript" src="{% static 'core/validacao.js' %}"></script>
 {% endblock %}
