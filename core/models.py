@@ -5,7 +5,7 @@ class Pedido(models.Model):
     cliente = models.CharField(max_length=100)
 
 class Item(models.Model):
-    quantidade_digitadada_pelo_usuario = models.IntegerField(default=1)
+    quantidade_digitada_pelo_usuario = models.IntegerField(default=1)
     preco_digitado_pelo_usuario = models.FloatField(default = 550000)
     produto = models.CharField(max_length=100)
     rentabilidade = models.CharField(max_length=100,null=True)

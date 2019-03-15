@@ -49,15 +49,15 @@ class PedidoForm(forms.ModelForm):
 class ItemForm(forms.ModelForm):
     class Meta:
         model = Item
-        fields = ['produto','quantidade_digitadada_pelo_usuario','preco_digitado_pelo_usuario']   
+        fields = ['produto','quantidade_digitada_pelo_usuario','preco_digitado_pelo_usuario']   
         widgets = {'produto': Select(choices=PRODUCT_CHOICES)} 
-        labels = {'quantidade_digitadada_pelo_usuario':'Quantidade','preco_digitado_pelo_usuario':'Preço'}
+        labels = {'quantidade_digitada_pelo_usuario':'Quantidade','preco_digitado_pelo_usuario':'Preço'}
 
     #valida campos do formulario ao clicar no botão de adicionar ou salvar
     def clean(self):
         cleaned_data = super().clean()
         #recupera os dados do formulario
-        quantity = cleaned_data.get("quantidade_digitadada_pelo_usuario")
+        quantity = cleaned_data.get("quantidade_digitada_pelo_usuario")
         product = cleaned_data.get("produto")
         price = cleaned_data.get("preco_digitado_pelo_usuario")
         multiplo = MULTIPLO_PRODUTOS[product]

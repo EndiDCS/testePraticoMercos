@@ -2,31 +2,30 @@
 {% load bootstrap %}
 {% load static %}
 {% block main %}
+
+    <h3 align="center">Novo Pedido</h3>
         
-        <h3 align="center">Novo Pedido</h3>
+    <form action="" method="post" id="pedidoForm" muda_preco_url="{% url 'core:ajax_muda_preco' %}">
+        {% csrf_token %}
+        {{ form1|bootstrap }}
+        {{ form2.produto|bootstrap }}
+        {{ form2.quantidade_digitada_pelo_usuario|bootstrap }} 
+        <div id="quantidade" style="color:rgb(109, 109, 3); margin-bottom: 5px" ></div>
         
-        <form action="" method="post" id="pedidoForm" muda_preco_url="{% url 'core:ajax_muda_preco' %}">
-            {% csrf_token %}
-            {{ form1|bootstrap }}
-            {{ form2|bootstrap }} 
-
-            <div id="rentabilidade" style="color:green" >
-                    Rentabilidade boa
-            </div>
-            <br>
+        {{ form2.preco_digitado_pelo_usuario|bootstrap }} 
+        <div id="rentabilidade" style="color:green" > 
+        </div>
+        <br>
         
-            <input type="submit" value="Adicionar novo Item" name="Adicionar" class="btn btn-primary" >
-            <input type="submit" value="Salvar Pedido" name="Salvar" class="btn btn-success">
-           
-        </form>
+        <input type="submit" value="Adicionar novo Item" name="Adicionar" class="btn btn-primary" >
+        <input type="submit" value="Salvar Pedido" name="Salvar" class="btn btn-success">
+    </form>
         
-        <form>
-            <input type="submit" value="Cancelar" name="Cancelar" class="btn btn-danger">
-        </form>
+    <form>
+        <input type="submit" value="Cancelar" name="Cancelar" class="btn btn-danger">
+    </form>
 
-        <script type="text/javascript" src="{% static 'core/validacao.js' %}"></script>
-
-
-
+    <script type="module" src="{% static 'core/rentabilidade.js' %}"></script>
+    <script type="module" src="{% static 'core/validacao.js' %}"></script>
 
 {% endblock %}

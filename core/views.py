@@ -65,7 +65,7 @@ def novoPedido(request):
             #processa os dados do formulario  e redireciona para alguma url
             client = form1.cleaned_data['cliente']
             product = form2.cleaned_data['produto']
-            quantity = form2.cleaned_data['quantidade_digitadada_pelo_usuario']
+            quantity = form2.cleaned_data['quantidade_digitada_pelo_usuario']
             price = form2.cleaned_data['preco_digitado_pelo_usuario']     
             lista_acumulada = request.session.get('lista_acumulada')
             # se o usuário clicar no botão salvar, salva os dados no banco
@@ -88,7 +88,7 @@ def novoPedido(request):
                     else:
                         rent = 'boa'    
                  
-                    item = Item(quantidade_digitadada_pelo_usuario=lista_acumulada[i][1],
+                    item = Item(quantidade_digitada_pelo_usuario=lista_acumulada[i][1],
                     preco_digitado_pelo_usuario=lista_acumulada[i][2],
                     produto=lista_acumulada[i][0],
                     rentabilidade=rent,
@@ -123,9 +123,7 @@ def novoPedido(request):
         lista_acumulada=[]
         request.session['lista_acumulada'] =lista_acumulada
     return render(request,'core/novoPedido.html',{'form1':form1,'form2':form2})
-
-def resultadoPedido(request):
-    return render(request,'core/resultado.html')    
+  
 
 def editaPedido(request, id, id2): 
     instance = get_object_or_404(Pedido, id=id)
@@ -135,5 +133,5 @@ def editaPedido(request, id, id2):
     if formPedido.is_valid() and formItem.is_valid():
         formPedido.save()
         formItem.save()
-        return redirect('core:resultadoPedido')
-    return render(request, 'core/editaPedido.html', {'formPedido': formPedido,'formItem':formItem})     
+        return redirect('core:todosPedidos')
+    return render(request, 'core/editaPedido.html', {'formPedido': formPedido,'formItem':formItem,'item':instance2})     
