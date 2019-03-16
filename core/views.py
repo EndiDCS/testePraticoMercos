@@ -126,6 +126,10 @@ def novoPedido(request):
   
 
 def editaPedido(request, id, id2): 
+    #caso o usuário clique em cancelar redireciona para a página que lista todos pedidos
+    if('Cancelar' in request.POST):
+            return HttpResponseRedirect(reverse('core:todosPedidos'))
+    #caso contrário o resto do código é executado        
     instance = get_object_or_404(Pedido, id=id)
     formPedido = PedidoForm(request.POST or None, instance=instance)
     instance2 = get_object_or_404(Item, id=id2)

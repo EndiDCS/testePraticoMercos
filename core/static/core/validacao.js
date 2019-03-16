@@ -1,6 +1,7 @@
 import { calcula,multiplo } from './calcula.js'; 
 const calculaRentabilidade = calcula 
 const calculaMultiplo = multiplo
+
 const modificaDivMultiplo = function(){
     var multi = calculaMultiplo()
     if(multi > 0)
@@ -13,8 +14,6 @@ const modificaDivMultiplo = function(){
 $(document).ready(function() {
     //para evitar inconsistências quando ocorre a atualização da página calcula-se o valor multiplo do produto
     modificaDivMultiplo()
-
-
     //quando o produto escolhido pelo usuário mudar, executar o código abaixo
     $('#id_produto').change(function () {
         // se o produto necessita ser vendido em quantidade multipla de um valor X então avisa ao usuário
