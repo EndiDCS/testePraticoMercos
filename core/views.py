@@ -71,7 +71,7 @@ def novoPedido(request):
             # se o usuário clicar no botão salvar, salva os dados no banco
             if('Salvar' in request.POST):
                 #adiciona item na lista e salva no banco de dados
-                lista=[product,quantity,float(price)]
+                lista=[product,quantity,price]
                 lista_acumulada.append(lista)
                 context = {'lista_acumulada':lista_acumulada,'client':client,'tamanho':len(lista_acumulada)}
                 p = Pedido.objects.create(cliente=client)

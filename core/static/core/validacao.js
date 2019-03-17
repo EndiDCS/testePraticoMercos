@@ -1,6 +1,7 @@
-import { calcula,multiplo } from './calcula.js'; 
+import { calcula,multiplo,fixaDuasCasas} from './calcula.js'; 
 const calculaRentabilidade = calcula 
 const calculaMultiplo = multiplo
+const formataCasasDecimais = fixaDuasCasas
 
 const modificaDivMultiplo = function(){
     var multi = calculaMultiplo()
@@ -18,6 +19,8 @@ $(document).ready(function() {
     $('#id_produto').change(function () {
         // se o produto necessita ser vendido em quantidade multipla de um valor X então avisa ao usuário
         modificaDivMultiplo()
+
+        
         //busca a url da view responsavel por buscar o novo preço do produto
         var url = $("#pedidoForm").attr("muda_preco_url"); 
         // novo produto selecionado pelo usuario
@@ -35,9 +38,22 @@ $(document).ready(function() {
             }
         });
     });
-    // calcula a rentabilidade sempre que o usuário digitar uma tecla no campo de preço
-    $('input[name="preco_digitado_pelo_usuario"]').keyup(function(){
-        calculaRentabilidade();        
+
+    $('input[name="preco_digitado_pelo_usuario"]').keyup(function(e) {
+        // calcula a rentabilidade sempre que o usuário digitar uma tecla no campo de preço
+        //alert(e.which)
+        //if((e.which>= 48 && e.which <=57)){
+           // $(this).val((formataCasasDecimais()));
+            calculaRentabilidade(); 
+       // }
+        /*if(e.which != '188')
+        {
+            $(this).val((formataCasasDecimais()));
+            calculaRentabilidade(); 
+        }*/
     });
+
+
+    
 
 });

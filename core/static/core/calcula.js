@@ -42,3 +42,23 @@ export function multiplo(){
     var valorMultiplo = multiplo_produtos[produto]
     return valorMultiplo
 }
+// essa função é chamada sempre que o usuário soltar uma tecla quando estiver digitando no campo de preços
+export function fixaDuasCasas(){
+    var valorNaoFormatado = $('input[name="preco_digitado_pelo_usuario"]').val()
+    //verifica se o numero digitado possui casas decimais
+    if(valorNaoFormatado.includes('.') ){
+        //se possuir apenas uma ou duas casas decimais não faz nada
+        if((valorNaoFormatado.charAt(valorNaoFormatado.length-2) == '.')){
+            valorFormatado=valorNaoFormatado
+            console.log('a')
+        }//caso contrario apaga as casas decimais excedidas
+        else{
+            while(valorNaoFormatado.charAt(valorNaoFormatado.length-3) != '.'){   	
+                valorNaoFormatado = valorNaoFormatado.substring(0,valorNaoFormatado.length-1);
+            }
+            console.log('b')
+        }
+    }
+    var valorFormatado=valorNaoFormatado
+    return valorFormatado   
+}

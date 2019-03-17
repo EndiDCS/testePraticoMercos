@@ -1,5 +1,5 @@
 from django import forms
-from django.forms import ModelForm,Select
+from django.forms import ModelForm,Select,NumberInput
 from .models import Pedido,Item
 from django.forms import Select
 from decimal import Decimal
@@ -50,7 +50,9 @@ class ItemForm(forms.ModelForm):
     class Meta:
         model = Item
         fields = ['produto','quantidade_digitada_pelo_usuario','preco_digitado_pelo_usuario']   
-        widgets = {'produto': Select(choices=PRODUCT_CHOICES)} 
+        widgets = {'produto': Select(choices=PRODUCT_CHOICES),
+                    'preco_digitado_pelo_usuario':NumberInput(attrs={'step':"0.01"})
+                    } 
         labels = {'quantidade_digitada_pelo_usuario':'Quantidade','preco_digitado_pelo_usuario':'Preço'}
 
     #valida campos do formulario ao clicar no botão de adicionar ou salvar
