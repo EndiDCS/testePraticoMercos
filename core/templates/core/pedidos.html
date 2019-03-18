@@ -1,9 +1,7 @@
 {% extends 'core/base.html' %}
+{% load icons %}
 {% block main %}
     <h1 align="center">Todos os Pedidos</h1>
-        
-    
-
     {% for pedido in p  %}
     <h3 align="center">Pedido {{pedido.id }}  <a href="{% url 'core:deletePedido' pedido.id %}" class="btn btn-danger"> Deletar Pedido </a></h3>
     <table class="table">
@@ -25,16 +23,18 @@
                     
                     <td> {{pedido.cliente}}</td>
                     <td>{{item.produto}}</td>
-                    <td>{{item.quantidade_digitada_pelo_usuario}}</td>
+                    <td align="center">{{item.quantidade_digitada_pelo_usuario}}</td>
                     <td>{{item.preco_digitado_pelo_usuario}}</td>
-                    <td>{{item.rentabilidade}}</td>
-                    <td><a href="{% url 'core:editaPedido' pedido.id item.id %}" class="btn btn-warning"> E </a>
-                        <a href="{% url 'core:deleteItem' item.id %}" class="btn btn-danger"> D </a></td>
+                    <td align="center">{{item.rentabilidade}}</td>
+                    <td><a href="{% url 'core:editaPedido' pedido.id item.id%}" class="btn btn-warning"> {% icon 'pencil' %} </a>
+                        <a href="{% url 'core:deleteItem' item.id %}" class="btn btn-danger"> {% icon 'trash' %} </a></td>
                 </tr>
           {% endif %} 
         {%endfor%}  
         </tbody>
       </table>
+      <hr class="my-4">
+
       {%endfor%}
 
 

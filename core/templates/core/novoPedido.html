@@ -34,12 +34,29 @@
 
     {% if adicionados %}
         <h3>Resumo do pedido</h3>
-        {% for i in adicionados %}
-            Produto: {{i.0}},
-            Quantidade: {{i.1}},
-            Preço: {{i.2}}
-            <br>
-        {% endfor %}
+       
+        <table class="table">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col">Produto</th>
+                    <th scope="col">Quantidade</th>
+                    <th scope="col">Preço</th>
+                  </tr>
+                </thead>
+                <tbody>
+                        {% for i in adicionados %}
+                        <tr>
+                            <td>{{i.0}}</td>
+                            <td>{{i.1}}</td>
+                            <td>{{i.2}}</td>
+                        </tr>
+                        {% endfor %}
+                </tbody>
+        </table>
+        
     {% endif %}
+
+
+
 
 {% endblock %}

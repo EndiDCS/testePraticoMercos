@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'core',
     'django_select2',
     'bootstrapform',
+    'django_icons',
 ]
 
 MIDDLEWARE = [
