@@ -42,6 +42,9 @@ export function multiplo(){
     var valorMultiplo = multiplo_produtos[produto]
     return valorMultiplo
 }
+
+
+//função não utilizada
 // essa função é chamada sempre que o usuário soltar uma tecla quando estiver digitando no campo de preços
 export function fixaDuasCasas(){
     var valorNaoFormatado = $('input[name="preco_digitado_pelo_usuario"]').val()
@@ -55,10 +58,11 @@ export function fixaDuasCasas(){
         else{
             while(valorNaoFormatado.charAt(valorNaoFormatado.length-3) != '.'){   	
                 valorNaoFormatado = valorNaoFormatado.substring(0,valorNaoFormatado.length-1);
+                
             }
             console.log('b')
         }
     }
     var valorFormatado=valorNaoFormatado
-    return valorFormatado   
+    //return valorFormatado   
 }

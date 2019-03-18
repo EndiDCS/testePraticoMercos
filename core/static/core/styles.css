@@ -2,6 +2,10 @@ body {
     background-color: #F2F2F2;
 }
 
+.form-control{
+    margin-bottom: 10px;
+}
+
 .jumbotron {
     background-color: #F2F2F2;
 }
@@ -11,3 +15,10 @@ body {
     }
     
 .word-wrap{word-wrap: break-word;}    
+
+.help-block{
+  padding: 5px;
+  border-radius: 3px 3px 3px 3px;
+  color: #D8000C;
+  background-color: #FFBABA;
+}

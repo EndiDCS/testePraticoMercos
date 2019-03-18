@@ -3,18 +3,22 @@
 {% load static %}
 {% block main %}
 
+
+
     <h3 align="center">Novo Pedido</h3>
         
     <form action="" method="post" id="pedidoForm" muda_preco_url="{% url 'core:ajax_muda_preco' %}">
         {% csrf_token %}
         {{ form1|bootstrap }}
+
         {{ form2.produto|bootstrap  }}
+
         {{ form2.quantidade_digitada_pelo_usuario|bootstrap }} 
+
         <div id="quantidade" style="color:rgb(109, 109, 3); margin-bottom: 5px" ></div>
+        
         {{ form2.preco_digitado_pelo_usuario|bootstrap }} 
-        <div id="rentabilidade" style="color:green" > 
-        </div>
-        <br>
+        <div id="rentabilidade" style="color:green; margin-bottom: 5px" > </div>
         
         <input type="submit" value="Adicionar novo Item" name="Adicionar" class="btn btn-primary" >
         <input type="submit" value="Salvar Pedido" name="Salvar" class="btn btn-success">
@@ -26,5 +30,16 @@
 
     <script type="module" src="{% static 'core/rentabilidade.js' %}"></script>
     <script type="module" src="{% static 'core/validacao.js' %}"></script>
+    <hr class="my-4">
+
+    {% if adicionados %}
+        <h3>Resumo do pedido</h3>
+        {% for i in adicionados %}
+            Produto: {{i.0}},
+            Quantidade: {{i.1}},
+            Preço: {{i.2}}
+            <br>
+        {% endfor %}
+    {% endif %}
 
 {% endblock %}

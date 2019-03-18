@@ -8,6 +8,7 @@ from django.shortcuts import get_object_or_404,redirect
 from .constantes import endi
 
 
+
 #################Constantes#################3
 PRECO_PRODUTOS = {
     'Millenium​ ​Falcon':550000,
@@ -57,6 +58,7 @@ def delete_pedido(request,id):
 
 #trata o novo pedido
 def novoPedido(request):
+    adicionados=[]
     #se a requisição chega com o verbo POST processa os dados recebidos e realiza as operações necessárias
     if request.method == 'POST':
         form1 = PedidoForm(request.POST)
@@ -108,10 +110,9 @@ def novoPedido(request):
                 #adiciona item a lista e salva na sessão
                 lista=[product,quantity,price]
                 lista_acumulada.append(lista)
+                adicionados=lista_acumulada
                 request.session['lista_acumulada'] = lista_acumulada
-                
-                return render(request,'core/novoPedido.html',{'form1':form1,'form2':form2})
-            
+                return render(request,'core/novoPedido.html',{'form1':form1,'form2':form2,'adicionados':adicionados})
     else:
         #caso a requisição não chegue como POST renderiza o formulario no formato padrão para o usuário
         #se cancelar volta pra página inicial
@@ -122,7 +123,8 @@ def novoPedido(request):
         form2 = ItemForm()
         lista_acumulada=[]
         request.session['lista_acumulada'] =lista_acumulada
-    return render(request,'core/novoPedido.html',{'form1':form1,'form2':form2})
+    adicionados=request.session['lista_acumulada'] #pega os itens já adicionados para informar ao usuário
+    return render(request,'core/novoPedido.html',{'form1':form1,'form2':form2,'adicionados':adicionados})
   
 
 def editaPedido(request, id, id2): 

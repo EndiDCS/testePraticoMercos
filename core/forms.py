@@ -56,7 +56,26 @@ class ItemForm(forms.ModelForm):
         labels = {'quantidade_digitada_pelo_usuario':'Quantidade','preco_digitado_pelo_usuario':'Preço'}
 
     #valida campos do formulario ao clicar no botão de adicionar ou salvar
-    def clean(self):
+    def clean_quantidade_digitada_pelo_usuario(self):
+        quantity = self.cleaned_data['quantidade_digitada_pelo_usuario']
+        product = self.cleaned_data['produto']
+        multiplo = MULTIPLO_PRODUTOS[product]
+        if(quantity <= 0):
+            raise forms.ValidationError("Quantidade deve ser maior do que zero")
+            #self.add_error('quantidade_digitada_pelo_usuario', msg)
+        if(MULTIPLO_PRODUTOS[product] != 0):
+            if((quantity % multiplo) != 0 ):
+                raise forms.ValidationError("Nao atende as regras de multiplo")
+        return quantity
+    def clean_preco_digitado_pelo_usuario(self):
+        price = self.cleaned_data['preco_digitado_pelo_usuario']
+        product = self.cleaned_data['produto']
+        if(price < (PRECO_PRODUTOS[product] - (PRECO_PRODUTOS[product]*0.1) )):         
+                raise forms.ValidationError("Impossivel adicionar o item, somente itens com rentabilidade boa ou ótima podem ser adicionados")
+        return price
+
+
+    """def clean(self):
         cleaned_data = super().clean()
         #recupera os dados do formulario
         quantity = cleaned_data.get("quantidade_digitada_pelo_usuario")
@@ -106,7 +125,8 @@ class ItemForm(forms.ModelForm):
         if (error2):
             raise forms.ValidationError("Rentabilidade Ruim")            
         if (error3):
-            raise forms.ValidationError("Quantidade precisa ser maior do que zero")    
+            raise forms.ValidationError("Quantidade precisa ser maior do que zero")    """
+        
        
 
 
