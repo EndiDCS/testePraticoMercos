@@ -2,22 +2,40 @@
 {% block main %}
     <h1 align="center">Todos os Pedidos</h1>
         
+    
+
     {% for pedido in p  %}
-    <br>  <br>    
-    <h3>Pedido {{pedido.id }}</h3>
-    <ul class="list-group" ></ul>      
-        <li class="list-group-item">Cliente: {{pedido.cliente}}</li>
+    <h3 align="center">Pedido {{pedido.id }}  <a href="{% url 'core:deletePedido' pedido.id %}" class="btn btn-danger"> Deletar Pedido </a></h3>
+    <table class="table">
+        <thead class="thead-dark">
+          <tr>
+           
+            <th scope="col">Cliente</th>
+            <th scope="col">Produto</th>
+            <th scope="col">Quantidade</th>
+            <th scope="col">Preço</th>
+            <th scope="col">Rentabilidade</th>
+            <th scope="col"> </th>
+          </tr>
+        </thead>
+        <tbody>
         {% for item in i %}
             {% if item.referencia_pedido == pedido %}
-                <li class="list-group-item">Produto: {{item.produto}}</li>
-                <li class="list-group-item">Quantidade: {{item.quantidade_digitada_pelo_usuario}}</li>
-                <li class="list-group-item">Preço: {{item.preco_digitado_pelo_usuario}}</li>
-                <li class="list-group-item">Rentabilidade: {{item.rentabilidade}}</li>
-                <li class="list-group-item" ><a href="{% url 'core:editaPedido' pedido.id item.id %}" class="btn btn-warning"> Editar Item </a>
-                <a href="{% url 'core:deleteItem' item.id %}" class="btn btn-danger"> Deletar Item </a>  </li> 
-            {% endif %}    
-        {%endfor%}
-        <li class="list-group-item" ><a href="{% url 'core:deletePedido' pedido.id %}" class="btn btn-danger"> Deletar Pedido </a></li> 
-    {%endfor%}
-    </ul>
+                <tr>
+                    
+                    <td> {{pedido.cliente}}</td>
+                    <td>{{item.produto}}</td>
+                    <td>{{item.quantidade_digitada_pelo_usuario}}</td>
+                    <td>{{item.preco_digitado_pelo_usuario}}</td>
+                    <td>{{item.rentabilidade}}</td>
+                    <td><a href="{% url 'core:editaPedido' pedido.id item.id %}" class="btn btn-warning"> E </a>
+                        <a href="{% url 'core:deleteItem' item.id %}" class="btn btn-danger"> D </a></td>
+                </tr>
+          {% endif %} 
+        {%endfor%}  
+        </tbody>
+      </table>
+      {%endfor%}
+
+
 {% endblock %} 
